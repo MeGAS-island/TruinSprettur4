@@ -8,7 +8,12 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import util.JSONParser;
+import util.XMLParser;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
@@ -30,6 +35,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity {
+	
+	// All static variables
+	static final String URL = "http://api.androidhive.info/pizza/?format=xml";
+	// XML node keys
+	static final String KEY_ITEM = "item"; // parent node
+	static final String KEY_ID = "id";
+	static final String KEY_NAME = "name";
+	static final String KEY_COST = "cost";
+	static final String KEY_DESC = "description";
+	
 	JSONParser jParser = new JSONParser();
 	JSONArray photos = null;
 	private static String url = "http://blikar.is/app_afrit/app/truPhotos";
@@ -56,6 +71,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		new LoadInstagramPhotos().execute();
+		new LoadPostillur().execute();
 
 		mTitle = mDrawerTitle = getTitle();
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -354,5 +370,38 @@ public class MainActivity extends FragmentActivity {
 		return null;		
 		}				
 	}
+	
+	class LoadPostillur extends AsyncTask<String, String, String> {
+
+		@SuppressLint("NewApi")
+		protected String doInBackground(String... args) {
+			
+			XMLParser parser = new XMLParser();
+			String xml = parser.getXmlFromUrl(URL); // getting XML
+			Document doc = parser.getDomElement(xml); // getting DOM element
+
+			NodeList nl = doc.getElementsByTagName(KEY_ITEM);
+			// looping through all item nodes <item>
+			for (int i = 0; i < nl.getLength(); i++) {
+				// creating new HashMap
+				Element e = (Element) nl.item(i);
+				
+				String id = parser.getValue(e, KEY_ID);
+				String name = parser.getValue(e, KEY_NAME);
+				String cost = parser.getValue(e, KEY_COST);
+				String desc = parser.getValue(e, KEY_DESC);
+				
+				Constants.id[i] = id;
+				Constants.name[i] = name;
+				Constants.cost[i] = cost;
+				Constants.desc[i] = desc;
+				
+				Log.d("id: ", id);
+				
+			}
+			return null;
+		}
+	}
+	
 
 }

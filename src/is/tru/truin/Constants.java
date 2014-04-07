@@ -10,4 +10,9 @@ public class Constants {
 	public static String manudur_selected = "";
 	public static String dagur_selected = "";
 	
+	public static String id[] = new String[10];
+	public static String name[] = new String[10];
+	public static String cost[] = new String[10];
+	public static String desc[] = new String[10];
+	
 }
