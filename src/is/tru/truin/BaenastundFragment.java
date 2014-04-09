@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +30,7 @@ public class BaenastundFragment extends Fragment
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
- 
+		
         View rootView = inflater.inflate(R.layout.fragment_baenastund, container, false);
        
         mannak = (TextView) rootView.findViewById(R.id.Mannakorn);
@@ -44,7 +45,21 @@ public class BaenastundFragment extends Fragment
         return rootView;
     }
 	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getActivity().getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+	        case R.id.about:
+	        	Intent AboutScreen = new Intent(getActivity().getApplicationContext(), About.class);
+	   		 	startActivity(AboutScreen);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+		}
+	}
 	
 }
 
