@@ -16,8 +16,12 @@ import util.JSONParser;
 import util.XMLParser;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -65,13 +69,36 @@ public class MainActivity extends FragmentActivity {
 	TruinPagerAdapter mPagerAdapter;
 	List<Fragment> fragments;
 	boolean pageron = false;
+	
+	Boolean isInternetOn = false;
+    ConnectionDetector cd;
+    final Context context = this;
+    CharSequence ok = "OK";
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		new LoadInstagramPhotos().execute();
-		new LoadPostillur().execute();
+		cd = new ConnectionDetector(getApplicationContext());
+        isInternetOn = cd.isConnectingToInternet();
+        if(!isInternetOn){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder.setTitle("Engin nettenging");
+            alertDialogBuilder
+                   .setMessage("Þú ert ekki tengdur netinu. Vinsamlegast kveiktu á netinu til að nota appið.")
+                   .setCancelable(false)
+            	   .setPositiveButton(ok, new OnClickListener() {
+            		   public void onClick(DialogInterface dialog, int id) { }
+            		   
+        			});
+                   AlertDialog alertDialog = alertDialogBuilder.create();
+                   alertDialog.show();
+        		}
+        else {
+        	new LoadInstagramPhotos().execute();
+			new LoadPostillur().execute();
+        }
 
 		mTitle = mDrawerTitle = getTitle();
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
