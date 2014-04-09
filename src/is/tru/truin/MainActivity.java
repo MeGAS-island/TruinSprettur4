@@ -173,15 +173,13 @@ public class MainActivity extends FragmentActivity {
 			return true;
 		}
 		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-        case R.id.about:
-        	Intent AboutScreen = new Intent(getApplicationContext(), About.class);
-   		 	startActivity(AboutScreen);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-    }
+	        case R.id.about:
+	        	Intent AboutScreen = new Intent(getApplicationContext(), About.class);
+	   		 	startActivity(AboutScreen);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
@@ -419,6 +417,7 @@ public class MainActivity extends FragmentActivity {
 			return null;
 		}
 	}
+	
 	
 
 }
