@@ -21,6 +21,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -74,7 +75,6 @@ public class MainActivity extends FragmentActivity {
     ConnectionDetector cd;
     final Context context = this;
     CharSequence ok = "OK";
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -175,9 +175,13 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+        case R.id.about:
+        	Intent AboutScreen = new Intent(getApplicationContext(), About.class);
+   		 	startActivity(AboutScreen);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
 	}
 
 	@Override
@@ -360,20 +364,6 @@ public class MainActivity extends FragmentActivity {
 		
 		pager.setAdapter(this.mPagerAdapter);
 	}
-	
-	private List<Fragment> getFragments(){
-		List<Fragment> fragments = new ArrayList<Fragment>();
-		
-		fragments.add(new BaenastundFragment());
-		fragments.add(new BaenastundKyrrdFragment());
-		fragments.add(new BaenastundSignaFragment());
-		fragments.add(new BaenastundOrdGudsFragment());
-		fragments.add(new BaenastundBaeninFragment());
-		fragments.add(new BaenastundBlessunFragment());
-		
-		return fragments;
-	}
-	
 	
 	class LoadInstagramPhotos extends AsyncTask<String, String, String> {
 		
