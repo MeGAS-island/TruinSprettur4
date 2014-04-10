@@ -3,6 +3,7 @@ package is.tru.truin;
 import is.tru.adapter.NavDrawerListAdapter;
 import is.tru.model.NavDrawerItem;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -16,15 +17,21 @@ import util.JSONParser;
 import util.XMLParser;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -100,6 +107,16 @@ public class MainActivity extends FragmentActivity {
 			new LoadPostillur().execute();
         }
 
+        
+        Intent myIntent = new Intent(MainActivity.this , NotificationService.class);     
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 35);
+        calendar.set(Calendar.SECOND, 00);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
+        
 		mTitle = mDrawerTitle = getTitle();
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 		navMenuIcons = getResources()
@@ -180,6 +197,35 @@ public class MainActivity extends FragmentActivity {
 	        default:
 	            return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	public Notification createNotification(){
+		// define sound URI, the sound to be played when there's a notification
+	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	   	 
+	   	// intent triggered, you can add other intent for other actions
+	   	Intent intent = new Intent(this, NotificationReceiver.class);
+	   	PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+	   	 
+	   	// this is it, we'll build the notification!
+	   	// in the addAction method, if you don't want any icon, just set the first param to 0
+	   	Notification mNotification = new Notification.Builder(this)
+	   	.setContentTitle("New Post!")
+	   	.setContentText("Here's an awesome update for you!")
+	   	.setSmallIcon(R.drawable.ic_bible_black)
+	   	.setContentIntent(pIntent)
+	   	.setSound(soundUri)
+	   	.addAction(R.drawable.ic_bible_black, "View", pIntent)
+	   	.addAction(0, "Remind", pIntent)
+	   	.build();
+	   	 
+	   	NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+	   	 
+	   	// If you want to hide the notification after it was selected, do the code below
+	   	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+	   	int notificationNumber = 0;
+	   	//notificationManager.notify(mNotification);
+	   	return mNotification;
 	}
 
 	@Override
@@ -349,9 +395,6 @@ public class MainActivity extends FragmentActivity {
 			fragments.add(4, new BaenastundBaeninFragment());
 			fragments.add(5, new BaenastundBlessunFragment());
 			
-	//		this.mPagerAdapter = new TruinPagerAdapter(super.getSupportFragmentManager(), fragments);
-			
-		//	pager.setAdapter(this.mPagerAdapter);
 		}
 		else {
 			fragments.clear();
