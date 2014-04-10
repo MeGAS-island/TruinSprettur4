@@ -1,5 +1,6 @@
 package is.tru.truin;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,7 +20,8 @@ public class NotificationService extends Activity{
    	 
    	// this is it, we'll build the notification!
    	// in the addAction method, if you don't want any icon, just set the first param to 0
-   	Notification mNotification = new Notification.Builder(this)
+   	@SuppressLint("NewApi")
+	Notification mNotification = new Notification.Builder(this)
    	.setContentTitle("New Post!")
    	.setContentText("Here's an awesome update for you!")
    	//.setSmallIcon(R.drawable.ic_bible_black)
@@ -34,6 +36,6 @@ public class NotificationService extends Activity{
    	// If you want to hide the notification after it was selected, do the code below
    	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
    	int notificationNumber = 0;
-   	notificationManager.notify(mNotification);
+   	//notificationManager.notify(mNotification);
 
 }
