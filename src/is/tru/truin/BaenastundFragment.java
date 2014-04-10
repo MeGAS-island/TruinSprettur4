@@ -41,13 +41,14 @@ public class BaenastundFragment extends Fragment
         pager = (ViewPager) rootView.findViewById(R.id.viewpager);
         
         mannak.setText(randomMannakorn);
+        
+        setHasOptionsMenu(true);
 
         return rootView;
     }
 	
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getActivity().getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void onPrepareOptionsMenu(Menu menu) {
+		getActivity().getMenuInflater().inflate(R.menu.about, menu);
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
