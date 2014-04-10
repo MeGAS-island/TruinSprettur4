@@ -47,10 +47,6 @@ public class BaenastundFragment extends Fragment
         return rootView;
     }
 	
-	public void onPrepareOptionsMenu(Menu menu) {
-		getActivity().getMenuInflater().inflate(R.menu.about, menu);
-	}
-	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 	        case R.id.about:
