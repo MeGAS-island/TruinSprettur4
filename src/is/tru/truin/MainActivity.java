@@ -46,17 +46,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+@SuppressLint("NewApi")
 public class MainActivity extends FragmentActivity {
-	
-	// All static variables
-	static final String URL = "http://api.androidhive.info/pizza/?format=xml";
-	// XML node keys
-	static final String KEY_ITEM = "item"; // parent node
-	static final String KEY_ID = "id";
-	static final String KEY_NAME = "name";
-	static final String KEY_COST = "cost";
-	static final String KEY_DESC = "description";
-	
+		
 	JSONParser jParser = new JSONParser();
 	JSONArray photos = null;
 	private static String url = "http://blikar.is/app_afrit/app/truPhotos";
@@ -93,7 +85,7 @@ public class MainActivity extends FragmentActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle("Engin nettenging");
             alertDialogBuilder
-                   .setMessage("Þú ert ekki tengdur netinu. Vinsamlegast kveiktu á netinu til að nota appið.")
+                   .setMessage("ï¿½ï¿½ ert ekki tengdur netinu. Vinsamlegast kveiktu ï¿½ netinu til aï¿½ nota appiï¿½.")
                    .setCancelable(false)
             	   .setPositiveButton(ok, new OnClickListener() {
             		   public void onClick(DialogInterface dialog, int id) { }
@@ -104,7 +96,6 @@ public class MainActivity extends FragmentActivity {
         		}
         else {
         	new LoadInstagramPhotos().execute();
-			new LoadPostillur().execute();
         }
 
         
@@ -199,6 +190,7 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
+	@SuppressLint("NewApi")
 	public Notification createNotification(){
 		// define sound URI, the sound to be played when there's a notification
 	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -427,38 +419,6 @@ public class MainActivity extends FragmentActivity {
 			}
 		return null;		
 		}				
-	}
-	
-	class LoadPostillur extends AsyncTask<String, String, String> {
-
-		@SuppressLint("NewApi")
-		protected String doInBackground(String... args) {
-			
-			XMLParser parser = new XMLParser();
-			String xml = parser.getXmlFromUrl(URL); // getting XML
-			Document doc = parser.getDomElement(xml); // getting DOM element
-
-			NodeList nl = doc.getElementsByTagName(KEY_ITEM);
-			// looping through all item nodes <item>
-			for (int i = 0; i < nl.getLength(); i++) {
-				// creating new HashMap
-				Element e = (Element) nl.item(i);
-				
-				String id = parser.getValue(e, KEY_ID);
-				String name = parser.getValue(e, KEY_NAME);
-				String cost = parser.getValue(e, KEY_COST);
-				String desc = parser.getValue(e, KEY_DESC);
-				
-				Constants.id[i] = id;
-				Constants.name[i] = name;
-				Constants.cost[i] = cost;
-				Constants.desc[i] = desc;
-				
-				Log.d("id: ", id);
-				
-			}
-			return null;
-		}
 	}
 	
 	

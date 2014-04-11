@@ -1,5 +1,8 @@
 package is.tru.truin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,7 +11,6 @@ import org.w3c.dom.NodeList;
 import util.JSONParser;
 import util.XMLParser;
 import is.tru.truin.R;
-import is.tru.truin.MainActivity.LoadPostillur;
 
 import android.annotation.SuppressLint;
 import android.app.ListFragment;
@@ -24,139 +26,96 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PostillurFragment extends ListFragment {
-	
-	static final String URL = "http://api.androidhive.info/pizza/?format=xml";
+public class PostillurFragment extends ListFragment{
 
-	static final String KEY_ITEM = "item";
-	static final String KEY_ID = "id";
-	static final String KEY_NAME = "name";
-	static final String KEY_COST = "cost";
-	static final String KEY_DESC = "description";
-	
-	TextView id;
-	TextView name;
-	TextView cost;
-	TextView desc;
-	
-	String str_id;
-	String str_name;
-	String str_cost;
-	String str_desc;
-	
-	View rootView;
-		
-	public PostillurFragment(){}
-	
-	
-	public class MyListAdapter extends ArrayAdapter<String> {
-		  
-		Context myContext;
-	
-		public MyListAdapter(Context context, int textViewResourceId,
-			String str_id, String str_name, String str_cost, String str_desc) {
-			super(context, textViewResourceId);
-			myContext = context;
-		}
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			
-			new LoadPostillur().execute();
-			   
-			LayoutInflater inflater = 
-					(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View row=inflater.inflate(R.layout.postillur_row, parent, false);
-							
-			return row;
-		}
-	}
-				 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		MyListAdapter myListAdapter = 
-				new MyListAdapter(getActivity(), R.layout.postillur_row, str_id, str_name, str_cost, str_desc);
-		setListAdapter(myListAdapter);
-	}
+    static final String URL = "http://api.androidhive.info/pizza/?format=xml";
+    // XML node keys
+    static final String KEY_ITEM = "item"; // parent node
+    //static final String KEY_ID = "id";
+    static final String KEY_ID = "id";
+    static final String KEY_NAME = "name";
+    static final String KEY_COST = "cost";
+    static final String KEY_DESC = "desc";
+    
+    
+    ArrayList<HashMap<String, String>> menuItems;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.postillur_listfragment, container, false);
-	}
-	
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		
-		//Getum gert eitthvad annad herna ef vid viljum
-		Toast.makeText(
-				getActivity(), 
-				getListView().getItemAtPosition(position).toString(), 
-				Toast.LENGTH_LONG).show();
-	}
-	
-    private class LoadPostillur extends  AsyncTask<Void, Void, Void>{
-    	
-    	ProgressDialog pDialog;
-    	
-    	protected Void doInBackground(Void...params) {
-	    	try {
-	    		
-				XMLParser parser = new XMLParser();
-				String xml = parser.getXmlFromUrl(URL);
-				Document doc = parser.getDomElement(xml);
-
-				NodeList nl = doc.getElementsByTagName(KEY_ITEM);
-	
-				for (int i = 0; i < nl.getLength(); i++) {
-
-					Element e = (Element) nl.item(i);
-					
-					str_id = parser.getValue(e, KEY_ID);
-					str_name = parser.getValue(e, KEY_NAME);
-					str_cost = parser.getValue(e, KEY_COST);
-					str_desc = parser.getValue(e, KEY_DESC);
-										
-				}
-				return null;
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    	return null;
-    	}
-		@Override
-		protected void onPreExecute(){
-			super.onPreExecute();
-			
-			id = (TextView)rootView.findViewById(R.id.id);
-			name = (TextView)rootView.findViewById(R.id.name);
-			cost = (TextView)rootView.findViewById(R.id.cost);
-			desc = (TextView)rootView.findViewById(R.id.desc);
-			CharSequence bidid = "Vinsamlega bíðið";
-			CharSequence sendi = "Sæki postillur"; 
-			pDialog = ProgressDialog.show(getActivity(), bidid, sendi, true, false);
-		}
-		
-		@Override
-		protected void onPostExecute(Void aVoid){
-			super.onPostExecute(aVoid);
-			id.setText(str_id);
-			name.setText(str_name);
-			cost.setText(str_cost);
-			desc.setText(str_desc);
-			pDialog.dismiss();
-		}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+                View view =inflater.inflate(R.layout.postillur_listfragment, null);
+        return view;
 
     }
-	
-	
+    @Override
+    public void onResume() {
+        super.onResume(); // don't forget to call super.onResume()
+        new loadListView().execute();
+
+    }
+
+    public class loadListView extends AsyncTask<Integer, String, String> 
+    {
+        @Override protected void onPreExecute() 
+        { 
+
+            Toast.makeText(getActivity(), "Ucitavanje...", Toast.LENGTH_LONG).show();
+
+        super.onPreExecute();
+        } 
+        @Override protected String doInBackground(Integer... args) 
+        { // updating UI from Background Thread 
+        menuItems = new ArrayList<HashMap<String, String>>();
+            final XMLParser parser = new XMLParser();
+            String xml = parser.getXmlFromUrl(URL); // getting XML
+            Document doc = parser.getDomElement(xml); // getting DOM element
+
+            NodeList nl = doc.getElementsByTagName(KEY_ITEM);
+            // looping through all item nodes <item>
+            for (int i = 0; i < nl.getLength(); i++) {
+                // creating new HashMap
+                HashMap<String, String> map = new HashMap<String, String>();
+                Element e = (Element) nl.item(i);
+                // adding each child node to HashMap key => value
+
+                map.put(KEY_NAME, parser.getValue(e, KEY_NAME));
+                map.put(KEY_COST, "Datum: " + parser.getValue(e, KEY_COST));
+                map.put(KEY_DESC, parser.getValue(e, KEY_DESC));
+
+                // adding HashList to ArrayList
+                menuItems.add(map);
+
+            }
+
+        return null; 
+        } 
+        @Override protected void onPostExecute(String args)
+        { 
+            Toast.makeText(getActivity(), "Ucitano", Toast.LENGTH_LONG).show();
+            String[] from = { KEY_NAME, KEY_DESC, KEY_COST};
+
+            /** Ids of views in listview_layout */
+            int[] to = { R.id.name, R.id.cost, R.id.desc};
+
+            // Instantiating an adapter to store each items
+            // R.layout.listview_layout defines the layout of each item
+            SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), menuItems, R.layout.postillur_row, from, to);        
+
+            // Setting the adapter to the listView
+            setListAdapter(adapter);
+
+
+
+                } 
+                }
+
 
 }
+
+
     
