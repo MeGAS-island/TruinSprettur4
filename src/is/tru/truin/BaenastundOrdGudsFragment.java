@@ -67,8 +67,8 @@ public class BaenastundOrdGudsFragment extends Fragment {
 			super.onPreExecute();
 			
 			ritningdagsins = (TextView) rootView.findViewById(R.id.ritningdagsins);
-			CharSequence bidid = "Vinsamlega bíðið";
-			CharSequence sendi = "Sæki ritningu dagsins"; 
+			CharSequence bidid = "Vinsamlega bÃ­Ã°iÃ°";
+			CharSequence sendi = "SÃ¦ki ritningu dagsins"; 
 			pDialog = ProgressDialog.show(getActivity(), bidid, sendi, true, false);
 		}
 		
