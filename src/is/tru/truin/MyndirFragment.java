@@ -74,9 +74,7 @@ public class MyndirFragment extends ListFragment {
 	}
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		
+	public void onListItemClick(ListView l, View v, int position, long id) {		
 		//Getum gert eitthvad annad herna ef vid viljum
 		Toast.makeText(
 				getActivity(), 

@@ -54,7 +54,7 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
             public void onClick(View v) {
             	Fragment newFragment = new SalmabokFragment();
                 android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment);
+                transaction.replace(R.id.frame_container, newFragment, "salmabok");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -68,7 +68,7 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
             public void onClick(View v) {
             	Fragment newFragment = new RandomBaenFragment();
                 android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment);
+                transaction.replace(R.id.frame_container, newFragment, "randombaen");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -81,7 +81,7 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
             public void onClick(View v) {
             	Fragment newFragment = new DagurValinnFragment();
                 android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment);
+                transaction.replace(R.id.frame_container, newFragment, "dagurvalinn");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

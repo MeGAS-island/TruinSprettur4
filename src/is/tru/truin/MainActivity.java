@@ -297,6 +297,34 @@ public class MainActivity extends FragmentActivity {
 				transaction.commit();
 				Log.d("m", "almanak");
 			}
+			
+			else if(fragmentManager.findFragmentByTag("dagurvalinn")!=null) {
+				f = fragmentManager.findFragmentByTag("dagurvalinn");
+				transaction.remove(f);
+				transaction.commit();
+				Log.d("m", "dagurvalinn");
+			}
+			
+			else if(fragmentManager.findFragmentByTag("randombaen")!=null) {
+				f = fragmentManager.findFragmentByTag("randombaen");
+				transaction.remove(f);
+				transaction.commit();
+				Log.d("m", "randombaen");
+			}
+			
+			else if(fragmentManager.findFragmentByTag("salmabok")!=null) {
+				f = fragmentManager.findFragmentByTag("salmabok");
+				transaction.remove(f);
+				transaction.commit();
+				Log.d("m", "salmabok");
+			}
+			
+			else if(fragmentManager.findFragmentByTag("fyrirbaen")!=null) {
+				f = fragmentManager.findFragmentByTag("fyrirbaen");
+				transaction.remove(f);
+				transaction.commit();
+				Log.d("m", "fyrirbaen");
+			}
 				
 			if(pageron == false) {
 				this.initialisePaging(true);

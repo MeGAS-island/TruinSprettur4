@@ -28,7 +28,7 @@ public class BaenirFragment extends Fragment{
             public void onClick(View v) {
             	Fragment newFragment = new RandomBaenFragment();
                 android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment);
+                transaction.replace(R.id.frame_container, newFragment, "randombaen");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -43,7 +43,7 @@ public class BaenirFragment extends Fragment{
 			public void onClick(View v) {
 				Fragment newFragment = new FyrirbaenaefniFragment();
 				android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-				transaction.replace(R.id.frame_container, newFragment);
+				transaction.replace(R.id.frame_container, newFragment. "fyrirbaen");
 				transaction.addToBackStack(null);
 				transaction.commit();
 				
