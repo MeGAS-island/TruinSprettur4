@@ -27,14 +27,16 @@ public class NotificationService extends Service{
      }
 	
 	 
+	@SuppressWarnings("deprecation")
 	public void onStart(Intent intent, int startID){
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		this.getApplicationContext();
+		/*NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setContentTitle("Bæn dagsins");
 		builder.setContentText("test");
-		builder.setTicker("ný skilaboð");
+		builder.setTicker("ný skilaboð");*/
 		
 		Log.d("not", "create notfication");
-		
+		/*
 		Intent resultIntent = new Intent(this, MainActivity.class);
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 		stackBuilder.addNextIntent(resultIntent);
@@ -44,7 +46,29 @@ public class NotificationService extends Service{
 		
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(0, builder.build());
-		Log.d("not", "send notification");
+		Log.d("not", "send notification");*/
+		NotificationManager mManager = (NotificationManager) this.getApplicationContext()
+                .getSystemService(                                                         
+                		Context.NOTIFICATION_SERVICE);
+		Intent intent1 = new Intent(this.getApplicationContext(),
+                MainActivity.class);
+		
+		Notification notification = new Notification(R.drawable.ic_angel,
+                "See My App something for you", System.currentTimeMillis());
+
+                 intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
+                  | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                 PendingIntent pendingNotificationIntent = PendingIntent.getActivity(
+                 this.getApplicationContext(), 0, intent1,
+                 PendingIntent.FLAG_UPDATE_CURRENT);
+
+                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+                notification.setLatestEventInfo(this.getApplicationContext(), "SANBOOK",
+                "See My App something for you", pendingNotificationIntent);
+
+                mManager.notify(0, notification);
 	}
 
 	public void startRepeatingTimer(View view){
