@@ -72,6 +72,7 @@ public class MainActivity extends FragmentActivity {
     ConnectionDetector cd;
     final Context context = this;
     CharSequence ok = "OK";
+    private NotificationReceiver alarm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +96,21 @@ public class MainActivity extends FragmentActivity {
         else {
         	new LoadInstagramPhotos().execute();
         }
-
         
+        alarm = new NotificationReceiver();
+        Log.d("alarm", "nýtt notificationreceiver");
+        startRepeatingTimer(findViewById(R.layout.activity_main));
+      /*  
         Intent myIntent = new Intent(MainActivity.this , NotificationReceiver.class);     
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.MINUTE, 35);
         calendar.set(Calendar.SECOND, 00);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
-        
+        Log.d("alarm", "set alarm");
+        */
 		mTitle = mDrawerTitle = getTitle();
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 		navMenuIcons = getResources()
@@ -233,6 +238,31 @@ public class MainActivity extends FragmentActivity {
 		notificationManager.notify(0, builder.build());*/
 		
 		return null;
+	}
+	
+	public void onStart(Intent intent, int startID){
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		builder.setContentTitle("Bæn dagsins");
+		builder.setContentText("test");
+		builder.setTicker("ný skilaboð");
+		
+		Log.d("not", "create notfication");
+		
+		Intent resultIntent = new Intent(this, MainActivity.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addNextIntent(resultIntent);
+		
+		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pendingIntent);
+		
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(0, builder.build());
+	}
+
+	public void startRepeatingTimer(View view){
+		Context context = this.getApplicationContext();
+		Log.d("not", "set alarm");
+		alarm.setAlarm(context);
 	}
 
 	@Override

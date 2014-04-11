@@ -26,6 +26,8 @@
         </activity>
         
         <activity android:name="is.tru.truin.About"></activity>
+        <service android:name="is.tru.truin.NotificationService"></service>
+        <receiver android:name="is.tru.truin.NotificationReceiver"></receiver>
     </application>
 
 </manifest>
