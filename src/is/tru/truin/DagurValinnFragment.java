@@ -42,94 +42,15 @@ public class DagurValinnFragment extends Fragment {
 	String AR = Constants.ar_selected;
 	String MAN = Constants.manudur_selected;
 	String DAG = Constants.dagur_selected;
-	String DA = "";
-
-	int dagur = 0;
 		
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        rootView = inflater.inflate(R.layout.fragment_dagur_valinn, container, false); 
-
+        rootView = inflater.inflate(R.layout.fragment_dagur_valinn, container, false);
+   
         new getJSONTask().execute();
-        
-        Log.d("typa DAG: ", DAG.getClass().getName());
-        
-        if(MAN == "janúar") {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = dag;
-        } else if(MAN == "febrúar" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 31 + dag;
-        } else if(MAN == "febrúar" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 31 + dag;
-        } else if(MAN == "mars" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 59 + dag;
-        } else if(MAN == "mars" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 60 + dag;
-        } else if(MAN == "apríl" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 90 + dag;
-        } else if(MAN == "apríl" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 91 + dag;
-        } else if(MAN == "maí" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 120 + dag;
-        } else if(MAN == "maí" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 121 + dag;
-        } else if(MAN == "júní" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 151 + dag;
-        } else if(MAN == "júní" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 152 + dag;
-        } else if(MAN == "júlí" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 181 + dag;
-        } else if(MAN == "júlí" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 182 + dag;
-        } else if(MAN == "ágúst" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 212 + dag;
-        } else if(MAN == "ágúst" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 213 + dag;
-        } else if(MAN == "september" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 243 + dag;
-        } else if(MAN == "september" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 244 + dag;
-        } else if(MAN == "október" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 273 + dag;
-        } else if(MAN == "október" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 274 + dag;
-        } else if(MAN == "nóvember" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 304 + dag;
-        } else if(MAN == "nóvember" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 305 + dag;
-        } else if(MAN == "desember" && (AR != "2012" || AR != "2008" || AR != "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 334 + dag;
-        } else if(MAN == "desember" && (AR == "2012" || AR == "2008" || AR == "2004")) {
-        	int dag = Integer.parseInt(DAG);
-        	dagur = 335 + dag;
-        }
-        
-        DA = Integer.toString(dagur);
-    	Log.d("ValueDA: ", DA);
-		
+    	
 		return rootView;
     }
     
@@ -137,11 +58,94 @@ public class DagurValinnFragment extends Fragment {
     	
     	ProgressDialog pDialog;
     	
+    	private  String CalculateDay (String year, String month, String day) {
+            
+    		int dag = Integer.parseInt(day);
+    		int dagur = 0;
+
+    		if(month == "janúar") {
+
+    			dagur = dag;
+    		} else if(month == "febrúar" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 31 + dag;
+    		} else if(month == "febrúar" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 31 + dag;
+    		} else if(month == "mars" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 59 + dag;
+    		} else if(month == "mars" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 60 + dag;
+    		} else if(month == "apríl" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 90 + dag;
+    		} else if(month == "apríl" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 91 + dag;
+    		} else if(month == "maí" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 120 + dag;
+    		} else if(month == "maí" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 121 + dag;
+    		} else if(month == "júní" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 151 + dag;
+    		} else if(month == "júní" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 152 + dag;
+    		} else if(month == "júlí" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 181 + dag;
+    		} else if(month == "júlí" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 182 + dag;
+    		} else if(month == "ágúst" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 212 + dag;
+    		} else if(month == "ágúst" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 213 + dag;
+    		} else if(month == "september" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 243 + dag;
+    		} else if(month == "september" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 244 + dag;
+    		} else if(month == "október" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 273 + dag;
+    		} else if(month == "október" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 274 + dag;
+    		} else if(month == "nóvember" && (year != "2012" || year != "2008" || year != "2004")) {
+    			
+    			dagur = 304 + dag;
+    		} else if(month == "nóvember" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 305 + dag;
+    		} else if(month == "desember" && (year != "2012" || year != "2008" || year != "2004")) {
+    				
+    			dagur = 334 + dag;
+    		} else if(month == "desember" && (year == "2012" || year == "2008" || year == "2004")) {
+    			
+    			dagur = 335 + dag;
+    		}
+    			
+    		String DA = Integer.toString(dagur);
+    		
+    		return DA;
+    		
+    		
+    	}
+    	
     	
     	protected Void doInBackground(Void...params) {
 	    	try {
 	    		JSONParser jParser = new JSONParser();
-				jsonObject = jParser.getJSONFromUrl("http://www2.tru.is/app/json.php?s=dagur&id="+DA+"&y="+AR);
+				jsonObject = jParser.getJSONFromUrl("http://www2.tru.is/app/json.php?s=dagur&id="+CalculateDay(AR,MAN,DAG)+"&y="+AR);
 				
 				
 				titill = jsonObject.getString("titill");

@@ -38,4 +38,12 @@
         android:layout_centerVertical="true"
         android:text="Velja" />
 
+    <Button
+        android:id="@+id/NyRandomBaen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Salmabok"
+        android:layout_toRightOf="@+id/btnVeljaDag"
+        android:text="@string/randomBaen" />
+
 </RelativeLayout>

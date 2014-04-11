@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical">
@@ -16,35 +16,43 @@
     	<TextView
 	        android:id="@+id/TvLestur"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvTitill"/>
 	    <TextView
 	        android:id="@+id/TvLesturTxt"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvLestur"/>
 	   	<TextView
 	        android:id="@+id/TvLestur2"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvLesturTxt"/>
 	   	<TextView
 	        android:id="@+id/TvLestur2Txt"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvLestur2"/>
 	   	<TextView
 	        android:id="@+id/TvSalmurNr"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvLestur2Txt"/>
 	   	<TextView
 	        android:id="@+id/TvSalmurText"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvSalmurNr"/>
 	   	<TextView
 	        android:id="@+id/TvBaenText"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvSalmurText"/>
 	   	<TextView
 	        android:id="@+id/TvMinnisversTxt"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
-	 </LinearLayout>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/TvBaenText"/>
+	 </RelativeLayout>
 		
 </ScrollView>
