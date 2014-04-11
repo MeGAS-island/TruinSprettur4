@@ -9,12 +9,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import util.JSONParser;
-import util.XMLParser;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -37,6 +33,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import is.tru.truin.TruinViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -85,7 +83,7 @@ public class MainActivity extends FragmentActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle("Engin nettenging");
             alertDialogBuilder
-                   .setMessage("ï¿½ï¿½ ert ekki tengdur netinu. Vinsamlegast kveiktu ï¿½ netinu til aï¿½ nota appiï¿½.")
+                   .setMessage("Þú ert ekki tengdur netinu. Vinsamlegast kveiktu á netinu til að nota appið.")
                    .setCancelable(false)
             	   .setPositiveButton(ok, new OnClickListener() {
             		   public void onClick(DialogInterface dialog, int id) { }
@@ -99,12 +97,12 @@ public class MainActivity extends FragmentActivity {
         }
 
         
-        Intent myIntent = new Intent(MainActivity.this , NotificationService.class);     
+        Intent myIntent = new Intent(MainActivity.this , NotificationReceiver.class);     
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 20);
-        calendar.set(Calendar.MINUTE, 35);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 52);
         calendar.set(Calendar.SECOND, 00);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
         
@@ -192,7 +190,7 @@ public class MainActivity extends FragmentActivity {
 	
 	@SuppressLint("NewApi")
 	public Notification createNotification(){
-		// define sound URI, the sound to be played when there's a notification
+	/*	// define sound URI, the sound to be played when there's a notification
 	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 	   	 
 	   	// intent triggered, you can add other intent for other actions
@@ -217,7 +215,24 @@ public class MainActivity extends FragmentActivity {
 	   	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
 	   	int notificationNumber = 0;
 	   	//notificationManager.notify(mNotification);
-	   	return mNotification;
+	   	return mNotification;*/
+		/*
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		builder.setContentTitle("Bæn dagsins");
+		builder.setContentText("test");
+		builder.setTicker("ný skilaboð");
+		
+		Intent resultIntent = new Intent(this, MainActivity.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addNextIntent(resultIntent);
+		
+		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		builder.setContentIntent(pendingIntent);
+		
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(0, builder.build());*/
+		
+		return null;
 	}
 
 	@Override
@@ -270,8 +285,6 @@ public class MainActivity extends FragmentActivity {
 		} else if (baenastund == true){
 			FragmentManager fragmentManager = getFragmentManager();
 			FragmentTransaction transaction = fragmentManager.beginTransaction();
-			/*transaction.remove();
-			transaction.commit();*/
 			android.app.Fragment f;
 			
 			if(fragmentManager.findFragmentByTag("myndir")!=null) {
