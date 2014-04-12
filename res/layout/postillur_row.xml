@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/title_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -13,7 +13,7 @@
         android:textColor="#000000"/>
 
     <TextView
-        android:id="@+id/desc"
+        android:id="@+id/content_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"

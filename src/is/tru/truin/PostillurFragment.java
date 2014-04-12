@@ -5,27 +5,29 @@ import java.util.HashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import util.XMLParser;
-import is.tru.truin.R;
-
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 public class PostillurFragment extends ListFragment{
 
 
-    static final String URL = "http://tru.is/postilla/rss2";
+    static final String URL = "http://tru.is/pistlar/rss2";
     
     static final String KEY_ITEM = "item";
     static final String KEY_TITLE = "title";
-    static final String KEY_DESC = "description";
+    static final String KEY_CONTENT = "content:encoded";
     
     
     ArrayList<HashMap<String, String>> menuItems;
@@ -43,8 +45,26 @@ public class PostillurFragment extends ListFragment{
         new loadListView().execute();
 
     }
+    
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		
+		String varTitle = ((TextView) v.findViewById(R.id.title_list)).getText().toString();
+		String varContent = ((TextView) v.findViewById(R.id.content_list)).getText().toString();
+					
+		Intent myIntent = new Intent();
+		myIntent.setClassName("is.tru.truin", "is.tru.truin.PostillaValin");
+		myIntent.putExtra(KEY_TITLE, varTitle);
+		myIntent.putExtra(KEY_CONTENT, varContent);
 
-    public class loadListView extends AsyncTask<Integer, String, String> 
+		startActivity(myIntent);
+		
+	}
+    
+
+
+
+	public class loadListView extends AsyncTask<Integer, String, String> 
     {
         @Override protected void onPreExecute() 
         { 
@@ -64,7 +84,7 @@ public class PostillurFragment extends ListFragment{
                 Element e = (Element) nl.item(i);
 
                 map.put(KEY_TITLE, parser.getValue(e, KEY_TITLE));
-                map.put(KEY_DESC, parser.getValue(e, KEY_DESC));
+                map.put(KEY_CONTENT, parser.getValue(e, KEY_CONTENT));
 
                 menuItems.add(map);
 
@@ -74,8 +94,8 @@ public class PostillurFragment extends ListFragment{
         } 
         @Override protected void onPostExecute(String args)
         { 
-            String[] from = { KEY_TITLE, KEY_DESC};
-            int[] to = { R.id.title, R.id.desc};
+            String[] from = { KEY_TITLE, KEY_CONTENT};
+            int[] to = { R.id.title_list, R.id.content_list};
             SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), menuItems, R.layout.postillur_row, from, to);        
             setListAdapter(adapter);
 
@@ -84,6 +104,3 @@ public class PostillurFragment extends ListFragment{
 
 
 }
-
-
-    

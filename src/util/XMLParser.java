@@ -14,6 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -64,6 +65,10 @@ public class XMLParser {
 	public Document getDomElement(String xml){
 		Document doc = null;
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setCoalescing(true);
+		if (dbf.isNamespaceAware()==Boolean.TRUE) {  
+	        dbf.setNamespaceAware(Boolean.FALSE);  
+	    } 
 		try {
 
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -94,14 +99,16 @@ public class XMLParser {
 	     if( elem != null){
 	         if (elem.hasChildNodes()){
 	             for( child = elem.getFirstChild(); child != null; child = child.getNextSibling() ){
-	                 if( child.getNodeType() == Node.TEXT_NODE  ){
+	            	 if( child.getNodeType() == Node.TEXT_NODE || child.getNodeType() == Node.CDATA_SECTION_NODE  ){     
 	                     return child.getNodeValue();
 	                 }
 	             }
 	         }
 	     }
-	     return "";
+	     return elem.getTextContent();
 	 }
+	 
+	 
 	 
 	 /**
 	  * Getting node value
@@ -112,4 +119,6 @@ public class XMLParser {
 			NodeList n = item.getElementsByTagName(str);		
 			return this.getElementValue(n.item(0));
 		}
+	 
+	 
 }
