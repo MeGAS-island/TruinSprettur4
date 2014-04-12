@@ -3,6 +3,7 @@ package is.tru.truin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -19,17 +20,13 @@ public class PostillaValin extends Activity {
 
         String varTitle = myIntent.getStringExtra(KEY_TITLE);
         String varContent = myIntent.getStringExtra(KEY_CONTENT);
-
-        Log.d("title: ", varTitle);
-        Log.d("content: ", varContent);
-
         
         TextView lblTitle = (TextView) findViewById(R.id.TitleValinn);
         TextView lblContent = (TextView) findViewById(R.id.ContentValinn);
-
+        
         
         lblTitle.setText(varTitle);
-        lblContent.setText(varContent);
+        lblContent.setText(Html.fromHtml(varContent));
 
     }
 }

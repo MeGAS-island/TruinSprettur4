@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,15 +55,15 @@ public class SalmabokFragment extends Fragment {
 			super.onPreExecute();
 			
 			salmur = (TextView)rootView.findViewById(R.id.salmur);
-			CharSequence bidid = "Vinsamlega bíðið";
-			CharSequence sendi = "Sæki sálm"; 
+			CharSequence bidid = "Vinsamlega bï¿½ï¿½iï¿½";
+			CharSequence sendi = "Sï¿½ki sï¿½lm"; 
 			pDialog = ProgressDialog.show(getActivity(), bidid, sendi, true, false);
 		}
 		
 		@Override
 		protected void onPostExecute(Void aVoid){
 			super.onPostExecute(aVoid);
-			salmur.setText(salmurText);
+			salmur.setText(Html.fromHtml(salmurText));
 			pDialog.dismiss();
 		}
 
