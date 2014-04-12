@@ -60,20 +60,7 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
             }
         });
         
-    
-        Button RandomBaen = (Button) rootView.findViewById(R.id.NyRandomBaen);
-        RandomBaen.setOnClickListener(new View.OnClickListener() {
-        
-            @Override
-            public void onClick(View v) {
-            	Fragment newFragment = new RandomBaenFragment();
-                android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, newFragment, "randombaen");
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-         
+             
         Button VeljaDag = (Button) rootView.findViewById(R.id.btnVeljaDag);
         VeljaDag.setOnClickListener(new View.OnClickListener() {
         
