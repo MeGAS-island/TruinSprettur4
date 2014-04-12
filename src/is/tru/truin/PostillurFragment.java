@@ -13,6 +13,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,9 @@ public class PostillurFragment extends ListFragment{
 
                 map.put(KEY_TITLE, parser.getValue(e, KEY_TITLE));
                 map.put(KEY_CONTENT, parser.getValue(e, KEY_CONTENT));
+                
+                //Log.d("title: ", parser.getValue(e, KEY_TITLE));
+                //Log.d("content: ", parser.getValue(e, KEY_CONTENT));
 
                 menuItems.add(map);
 
