@@ -47,14 +47,14 @@ public class NotificationService extends Service{
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(0, builder.build());
 		Log.d("not", "send notification");*/
-		NotificationManager mManager = (NotificationManager) this.getApplicationContext()
+	/*	NotificationManager mManager = (NotificationManager) this.getApplicationContext()
                 .getSystemService(                                                         
                 		Context.NOTIFICATION_SERVICE);
 		Intent intent1 = new Intent(this.getApplicationContext(),
                 MainActivity.class);
 		
-		Notification notification = new Notification(R.drawable.ic_angel,
-                "See My App something for you", System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.ic_logo,
+                "Ertu búin að fara í gegnum bænastundina í dag?", System.currentTimeMillis());
 
                  intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
                   | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -65,10 +65,35 @@ public class NotificationService extends Service{
 
                  notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-                notification.setLatestEventInfo(this.getApplicationContext(), "SANBOOK",
-                "See My App something for you", pendingNotificationIntent);
+                notification.setLatestEventInfo(this.getApplicationContext(), "Trúin og lífið",
+                "Ertu búin að fara í gegnum bænastundina í dag?", pendingNotificationIntent);
 
-                mManager.notify(0, notification);
+                mManager.notify(0, notification);*/
+                
+             // define sound URI, the sound to be played when there's a notification
+        	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        	   	 
+        	   	// intent triggered, you can add other intent for other actions
+        	   	Intent intent1 = new Intent(this, MainActivity.class);
+        	   	PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+        	   	 
+        	   	// this is it, we'll build the notification!
+        	   	// in the addAction method, if you don't want any icon, just set the first param to 0
+        	   	Notification mNotification = new Notification.Builder(this)
+        	   	.setContentTitle("Trúin og lífið")
+        	   	.setContentText("Ertu búin að fara í gegnum bænastundina í dag?")
+        	   	.setSmallIcon(R.drawable.ic_logo)
+        	   	.setContentIntent(pIntent)
+        	   	.setDefaults(Notification.DEFAULT_ALL)
+        	   	.addAction(0, "Remind", pIntent)
+        	   	.build();
+        	   	 
+        	   	NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        	   	 
+        	   	// If you want to hide the notification after it was selected, do the code below
+        	   	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+        	   	int notificationNumber = 0;
+        	   	notificationManager.notify(notificationNumber, mNotification);
 	}
 
 	public void startRepeatingTimer(View view){
