@@ -85,6 +85,13 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
 		return isLeapYear;
 	}
 	
+	public boolean isFebruary(String str_month) {
+		
+		if (str_month.equals("febrúar")) return true;
+		
+		return false;
+	}
+	
 	
 
 	private void setSpinnerContent( View view )
@@ -96,7 +103,29 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
 		ar = (Spinner)view.findViewById(R.id.ar);
         aradapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, arValues);
         ar.setAdapter( aradapter );
-        ar.setOnItemSelectedListener(new MyOnItemSelectedListener());
+        //ar.setOnItemSelectedListener(new MyOnItemSelectedListener());
+        ar.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                    int pos, long id) {
+                List<String> s = Arrays.asList(getResources().getStringArray(R.array.dagarValues));
+                if (isFebruary((String) manudur.getSelectedItem()) && isLeapYear((String) ar.getSelectedItem())) {
+                	s = s.subList(0,29);
+                    daguradapter = new  ArrayAdapter<String>(parent.getContext(), android.R.layout.simple_spinner_item,s);
+                    dagur.setAdapter(daguradapter);
+                } else if (isFebruary((String) manudur.getSelectedItem()) && !isLeapYear((String) ar.getSelectedItem())) {
+                    s = s.subList(0,28);                    
+                    daguradapter = new  ArrayAdapter<String>(parent.getContext(), android.R.layout.simple_spinner_item,s);
+                    dagur.setAdapter(daguradapter);
+                } 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
          
         manudur = (Spinner)view.findViewById(R.id.manudur);
         manuduradapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, manudurValues);
@@ -107,10 +136,8 @@ public class AlmanakFragment extends Fragment implements OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                     int pos, long id) {
-               
                 List<String> s = Arrays.asList(getResources().getStringArray(R.array.dagarValues));
-                if (pos == 0 || pos == 2 || pos == 4 || pos == 8 || pos == 9
-                        || pos == 11) {
+                if (pos == 0 || pos == 2 || pos == 4 || pos == 6 || pos == 7 || pos == 9 || pos == 11) {
                     daguradapter = new  ArrayAdapter<String>(parent.getContext(), android.R.layout.simple_spinner_item,s);
                     dagur.setAdapter(daguradapter);
                 } else if (pos == 1 && !isLeapYear((String) ar.getSelectedItem())) {
