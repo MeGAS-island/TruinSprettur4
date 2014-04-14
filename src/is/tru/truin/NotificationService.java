@@ -71,6 +71,9 @@ public class NotificationService extends Service{
                 mManager.notify(0, notification);*/
                 
              // define sound URI, the sound to be played when there's a notification
+		
+				if(intent.getBooleanExtra("notification", false)) {
+		
         	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         	   	 
         	   	// intent triggered, you can add other intent for other actions
@@ -87,13 +90,19 @@ public class NotificationService extends Service{
         	   	.setDefaults(Notification.DEFAULT_ALL)
         	   	.addAction(0, "Remind", pIntent)
         	   	.build();
-        	   	 
+        	   	
+        	   	mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+        	   	
         	   	NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         	   	 
         	   	// If you want to hide the notification after it was selected, do the code below
         	   	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
         	   	int notificationNumber = 0;
         	   	notificationManager.notify(notificationNumber, mNotification);
+        	   	
+				}
+        	   	
+        	   	stopSelf();
 	}
 
 	public void startRepeatingTimer(View view){

@@ -30,6 +30,7 @@
         <activity android:name="is.tru.truin.PostillaValin"></activity>
         <service android:name="is.tru.truin.NotificationService"></service>
         <receiver android:name="is.tru.truin.NotificationReceiver"></receiver>
+        <activity android:name="is.tru.truin.ResultActivity"></activity>
     </application>
 
 </manifest>

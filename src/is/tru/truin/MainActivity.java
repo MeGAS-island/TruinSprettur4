@@ -3,38 +3,28 @@ package is.tru.truin;
 import is.tru.adapter.NavDrawerListAdapter;
 import is.tru.model.NavDrawerItem;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import util.JSONParser;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import is.tru.truin.TruinViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -97,20 +87,12 @@ public class MainActivity extends FragmentActivity {
         	new LoadInstagramPhotos().execute();
         }
         
-        alarm = new NotificationReceiver();
-        Log.d("alarm", "nýtt notificationreceiver");
-        startRepeatingTimer(findViewById(R.layout.activity_main));
-      /*  
-        Intent myIntent = new Intent(MainActivity.this , NotificationReceiver.class);     
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 35);
-        calendar.set(Calendar.SECOND, 00);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
-        Log.d("alarm", "set alarm");
-        */
+        if(savedInstanceState==null) {
+	        alarm = new NotificationReceiver();
+	        Log.d("alarm", "nýtt notificationreceiver");
+	        startRepeatingTimer(findViewById(R.layout.activity_main));
+        }
+        
 		mTitle = mDrawerTitle = getTitle();
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 		navMenuIcons = getResources()
@@ -193,53 +175,8 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	
-	@SuppressLint("NewApi")
-	public Notification createNotification(){
-	/*	// define sound URI, the sound to be played when there's a notification
-	  	Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-	   	 
-	   	// intent triggered, you can add other intent for other actions
-	   	Intent intent = new Intent(this, NotificationReceiver.class);
-	   	PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-	   	 
-	   	// this is it, we'll build the notification!
-	   	// in the addAction method, if you don't want any icon, just set the first param to 0
-	   	Notification mNotification = new Notification.Builder(this)
-	   	.setContentTitle("New Post!")
-	   	.setContentText("Here's an awesome update for you!")
-	   	.setSmallIcon(R.drawable.ic_bible_black)
-	   	.setContentIntent(pIntent)
-	   	.setSound(soundUri)
-	   	.addAction(R.drawable.ic_bible_black, "View", pIntent)
-	   	.addAction(0, "Remind", pIntent)
-	   	.build();
-	   	 
-	   	NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-	   	 
-	   	// If you want to hide the notification after it was selected, do the code below
-	   	// myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-	   	int notificationNumber = 0;
-	   	//notificationManager.notify(mNotification);
-	   	return mNotification;*/
-		/*
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-		builder.setContentTitle("Bæn dagsins");
-		builder.setContentText("test");
-		builder.setTicker("ný skilaboð");
-		
-		Intent resultIntent = new Intent(this, MainActivity.class);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		stackBuilder.addNextIntent(resultIntent);
-		
-		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-		builder.setContentIntent(pendingIntent);
-		
-		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(0, builder.build());*/
-		
-		return null;
-	}
 	
+/*	
 	public void onStart(Intent intent, int startID){
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setContentTitle("Bæn dagsins");
@@ -258,7 +195,7 @@ public class MainActivity extends FragmentActivity {
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(0, builder.build());
 	}
-
+*/
 	public void startRepeatingTimer(View view){
 		Context context = this.getApplicationContext();
 		Log.d("not", "set alarm");
