@@ -10,5 +10,7 @@ public class Constants {
 	public static String manudur_selected = "";
 	public static String dagur_selected = "";
 
-	
+	public static boolean isSound = true;
+	public static boolean isVibrate = true;
+	public static boolean isNotification = true;
 }

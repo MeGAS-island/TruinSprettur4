@@ -28,6 +28,7 @@
         
         <activity android:name="is.tru.truin.About"></activity>
         <activity android:name="is.tru.truin.PostillaValin"></activity>
+        <activity android:name="is.tru.truin.Settings"></activity>
         <receiver android:name="is.tru.truin.NotificationReceiver"></receiver>
     </application>
 

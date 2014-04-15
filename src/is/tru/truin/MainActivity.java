@@ -89,7 +89,6 @@ public class MainActivity extends FragmentActivity {
         
         if(savedInstanceState==null) {
 	        alarm = new NotificationReceiver();
-	        Log.d("alarm", "nýtt notificationreceiver");
 	        startRepeatingTimer(findViewById(R.layout.activity_main));
         }
         
@@ -170,35 +169,17 @@ public class MainActivity extends FragmentActivity {
 	        	Intent AboutScreen = new Intent(getApplicationContext(), About.class);
 	   		 	startActivity(AboutScreen);
 	            return true;
+	        case R.id.action_settings:
+	        	Intent SettingsScreen = new Intent(getApplicationContext(), Settings.class);
+	        	startActivity(SettingsScreen);
+	        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 		}
 	}
 	
-	
-/*	
-	public void onStart(Intent intent, int startID){
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-		builder.setContentTitle("Bæn dagsins");
-		builder.setContentText("test");
-		builder.setTicker("ný skilaboð");
-		
-		Log.d("not", "create notfication");
-		
-		Intent resultIntent = new Intent(this, MainActivity.class);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		stackBuilder.addNextIntent(resultIntent);
-		
-		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-		builder.setContentIntent(pendingIntent);
-		
-		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(0, builder.build());
-	}
-*/
 	public void startRepeatingTimer(View view){
 		Context context = this.getApplicationContext();
-		Log.d("not", "set alarm");
 		alarm.setAlarm(context);
 	}
 
@@ -257,53 +238,45 @@ public class MainActivity extends FragmentActivity {
 			if(fragmentManager.findFragmentByTag("myndir")!=null) {
 				f = fragmentManager.findFragmentByTag("myndir");
 				transaction.remove(f);
-				Log.d("m", "myndir");
 			}
 			else if(fragmentManager.findFragmentByTag("baenir")!=null) {
 				f = fragmentManager.findFragmentByTag("baenir");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "baenir");
 			}
 			else if(fragmentManager.findFragmentByTag("postillur")!=null) {
 				f = fragmentManager.findFragmentByTag("postillur");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "postillur");
 			}
 			else if(fragmentManager.findFragmentByTag("almanak")!=null) {
 				f = fragmentManager.findFragmentByTag("almanak");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "almanak");
 			}
 			
 			else if(fragmentManager.findFragmentByTag("dagurvalinn")!=null) {
 				f = fragmentManager.findFragmentByTag("dagurvalinn");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "dagurvalinn");
 			}
 			
 			else if(fragmentManager.findFragmentByTag("randombaen")!=null) {
 				f = fragmentManager.findFragmentByTag("randombaen");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "randombaen");
 			}
 			
 			else if(fragmentManager.findFragmentByTag("salmabok")!=null) {
 				f = fragmentManager.findFragmentByTag("salmabok");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "salmabok");
 			}
 			
 			else if(fragmentManager.findFragmentByTag("fyrirbaen")!=null) {
 				f = fragmentManager.findFragmentByTag("fyrirbaen");
 				transaction.remove(f);
 				transaction.commit();
-				Log.d("m", "fyrirbaen");
 			}
 				
 			if(pageron == false) {
@@ -394,7 +367,6 @@ public class MainActivity extends FragmentActivity {
 			fragments.add(3, new BaenastundOrdGudsFragment());
 			fragments.add(4, new BaenastundBaeninFragment());
 			fragments.add(5, new BaenastundBlessunFragment());
-			
 		}
 		else {
 			fragments.clear();
@@ -402,7 +374,6 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		this.mPagerAdapter = new TruinPagerAdapter(super.getSupportFragmentManager(), fragments);
-		
 		pager.setAdapter(this.mPagerAdapter);
 	}
 	
@@ -428,7 +399,4 @@ public class MainActivity extends FragmentActivity {
 		return null;		
 		}				
 	}
-	
-	
-
 }
