@@ -32,18 +32,18 @@
         <item>Bænastund</item>
         <item>Almanak</item>
         <item>Myndir</item>
-        <item>Fyrirbænaefni</item>
+        <item>Bænir</item>
         <item>Pistlar og Postillur</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_praying</item>
-        <item>@drawable/ic_bible_black</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_candle</item>
+        <item>@drawable/ic_baenastund</item>
+        <item>@drawable/ic_almanak</item>
+        <item>@drawable/ic_myndir</item>
+        <item>@drawable/ic_dufa</item>
+        <item>@drawable/ic_kerti</item>
     </array>
     
     <string-array name="dagarValues">
