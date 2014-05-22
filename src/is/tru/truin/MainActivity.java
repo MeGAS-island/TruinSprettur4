@@ -180,7 +180,7 @@ public class MainActivity extends FragmentActivity {
 	
 	public void startRepeatingTimer(View view){
 		Context context = this.getApplicationContext();
-		alarm.setAlarm(context);
+		alarm.setAlarm(context, Constants.hour, Constants.min);
 	}
 
 	@Override
@@ -215,22 +215,7 @@ public class MainActivity extends FragmentActivity {
 		default:
 			break;
 		}
-		if (Mfragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			FragmentTransaction transaction = fragmentManager.beginTransaction();
-			transaction.replace(R.id.frame_container, Mfragment, "myndir");
-			transaction.commit();
-			
-			if(pager.getPagingEnabled() == true) {
-				pager.setPagingEnabled(false);
-				this.initialisePaging(false);
-			}
-			
-			mDrawerList.setItemChecked(position, true);
-			mDrawerList.setSelection(position);
-			setTitle(navMenuTitles[position]);
-			mDrawerLayout.closeDrawer(mDrawerList);
-		} else if (baenastund == true){
+		if (baenastund == true){
 			FragmentManager fragmentManager = getFragmentManager();
 			FragmentTransaction transaction = fragmentManager.beginTransaction();
 			android.app.Fragment f;
@@ -238,6 +223,7 @@ public class MainActivity extends FragmentActivity {
 			if(fragmentManager.findFragmentByTag("myndir")!=null) {
 				f = fragmentManager.findFragmentByTag("myndir");
 				transaction.remove(f);
+				transaction.commit();
 			}
 			else if(fragmentManager.findFragmentByTag("baenir")!=null) {
 				f = fragmentManager.findFragmentByTag("baenir");
@@ -291,6 +277,20 @@ public class MainActivity extends FragmentActivity {
 			mDrawerList.setSelection(position);
 			setTitle(navMenuTitles[position]);
 			mDrawerLayout.closeDrawer(mDrawerList); 
+		} else if (Mfragment != null) {
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction()
+					.replace(R.id.frame_container, Mfragment, "myndir").commit();
+			
+			if(pager.getPagingEnabled() == true) {
+				pager.setPagingEnabled(false);
+				this.initialisePaging(false);
+			}
+			
+			mDrawerList.setItemChecked(position, true);
+			mDrawerList.setSelection(position);
+			setTitle(navMenuTitles[position]);
+			mDrawerLayout.closeDrawer(mDrawerList);
 		} else if (Bafragment != null){
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()

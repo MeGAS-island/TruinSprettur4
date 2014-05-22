@@ -13,4 +13,7 @@ public class Constants {
 	public static boolean isSound = true;
 	public static boolean isVibrate = true;
 	public static boolean isNotification = true;
+	
+	public static int hour = 14;
+	public static int min = 25;
 }
