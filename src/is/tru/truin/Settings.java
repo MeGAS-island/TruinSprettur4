@@ -48,7 +48,7 @@ public class Settings extends Activity {
 						Constants.isSound=true;
 						Constants.isVibrate=true;
 						Context context = getApplicationContext();
-						NotificationReceiver.setAlarm(context, Constants.hour, Constants.min);
+						//NotificationReceiver.setAlarm(context, Constants.hour, Constants.min);
 					}
 				}
 				//bæta inn til baka á upphafsskjá

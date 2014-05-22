@@ -61,7 +61,7 @@ public class NotificationReceiver extends BroadcastReceiver {
    	  // 	setAlarm(context, Constants.hour, Constants.min+5);
 	}
 	
-	public static void setAlarm(Context context, int hour, int mins) {
+/*	public static void setAlarm(Context context, int hour, int mins) {
 		Log.d("not", Boolean.toString(Constants.isNotification));
 		Log.d("sound", Boolean.toString(Constants.isSound));
 		Log.d("vib", Boolean.toString(Constants.isVibrate));
@@ -78,8 +78,8 @@ public class NotificationReceiver extends BroadcastReceiver {
 	        if(currTime < calendar.getTimeInMillis()) {
 	        	Log.d("alarm", "set alarm");
 	        	alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); 
-	        }*/
+	        }
 	        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, pendingIntent);
-		}
-	}
+		} 
+	}*/
 }
