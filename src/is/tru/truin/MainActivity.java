@@ -3,6 +3,7 @@ package is.tru.truin;
 import is.tru.adapter.NavDrawerListAdapter;
 import is.tru.model.NavDrawerItem;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,9 +12,11 @@ import org.json.JSONObject;
 import util.JSONParser;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -180,7 +183,26 @@ public class MainActivity extends FragmentActivity {
 	
 	public void startRepeatingTimer(View view){
 		Context context = this.getApplicationContext();
-		alarm.setAlarm(context, Constants.hour, Constants.min);
+		//alarm.setAlarm(context, Constants.hour, Constants.min);
+		Log.d("not", Boolean.toString(Constants.isNotification));
+		Log.d("sound", Boolean.toString(Constants.isSound));
+		Log.d("vib", Boolean.toString(Constants.isVibrate));
+		Intent myIntent = new Intent(context , NotificationReceiver.class);     
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+        //alarmManager.cancel(pendingIntent);
+		if(Constants.isNotification){
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.set(Calendar.HOUR_OF_DAY, Constants.hour);
+	        calendar.set(Calendar.MINUTE, Constants.min);
+	        calendar.set(Calendar.SECOND, 00);
+	        long currTime = System.currentTimeMillis();
+	        if(currTime < calendar.getTimeInMillis()) {
+	        	Log.d("alarm", "set alarm");
+	        	//alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+	        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, pendingIntent);
+	        }
+	        }
 	}
 
 	@Override

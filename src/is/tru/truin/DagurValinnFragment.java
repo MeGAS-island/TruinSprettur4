@@ -64,10 +64,10 @@ public class DagurValinnFragment extends Fragment {
     		int dag = Integer.parseInt(day);
     		int dagur = 0;
 
-    		if(month == "janÃºar") {
+    		if(month == "janúar") {
 
     			dagur = dag;
-    		} else if(month == "febrÃºar") {
+    		} else if(month == "febrúar") {
     			
     			dagur = 31 + dag;
     		} else if(month == "mars" && (year != "2012" && year != "2008" && year != "2004")) {
@@ -76,34 +76,34 @@ public class DagurValinnFragment extends Fragment {
     		} else if(month == "mars" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 60 + dag;
-    		} else if(month == "aprÃ­l" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "apríl" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 90 + dag;
-    		} else if(month == "aprÃ­l" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "apríl" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 91 + dag;
-    		} else if(month == "maÃ­" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "maí" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 120 + dag;
-    		} else if(month == "maÃ­" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "maí" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 121 + dag;
-    		} else if(month == "jÃºnÃ­" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "júní" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 151 + dag;
-    		} else if(month == "jÃºnÃ­" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "júní" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 152 + dag;
-    		} else if(month == "jÃºlÃ­" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "júlí" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 181 + dag;
-    		} else if(month == "jÃºlÃ­" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "júlí" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 182 + dag;
-    		} else if(month == "Ã¡gÃºst" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "ágúst" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 212 + dag;
-    		} else if(month == "Ã¡gÃºst" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "ágúst" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 213 + dag;
     		} else if(month == "september" && (year != "2012" && year != "2008" && year != "2004")) {
@@ -112,16 +112,16 @@ public class DagurValinnFragment extends Fragment {
     		} else if(month == "september" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 244 + dag;
-    		} else if(month == "oktÃ³ber" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "október" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 273 + dag;
-    		} else if(month == "oktÃ³ber" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "október" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 274 + dag;
-    		} else if(month == "nÃ³vember" && (year != "2012" && year != "2008" && year != "2004")) {
+    		} else if(month == "nóvember" && (year != "2012" && year != "2008" && year != "2004")) {
     			
     			dagur = 304 + dag;
-    		} else if(month == "nÃ³vember" && (year == "2012" || year == "2008" || year == "2004")) {
+    		} else if(month == "nóvember" && (year == "2012" || year == "2008" || year == "2004")) {
     			
     			dagur = 305 + dag;
     		} else if(month == "desember" && (year != "2012" && year != "2008" && year != "2004")) {
@@ -141,7 +141,8 @@ public class DagurValinnFragment extends Fragment {
     	protected Void doInBackground(Void...params) {
 	    	try {
 	    		JSONParser jParser = new JSONParser();
-				jsonObject = jParser.getJSONFromUrl("http://www2.tru.is/app/json.php?s=dagur&id="+CalculateDay(AR,MAN,DAG)+"&y="+AR);
+				jsonObject = jParser.getJSONFromUrl(//"http://www2.tru.is/app/json.php?s=dagur&id=11&y=2012");
+						"http://www2.tru.is/app/json.php?s=dagur&id="+CalculateDay(AR,MAN,DAG)+"&y="+AR);
 				
 				
 				titill = jsonObject.getString("titill");
